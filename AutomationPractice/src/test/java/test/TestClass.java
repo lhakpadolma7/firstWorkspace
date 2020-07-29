@@ -1,16 +1,25 @@
 package test;
 
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.Test;
 
-public class TestClass {
+import main.SingletonDriver;
+import main.Util;
 
+public class TestClass {
+	
 	@Test
 	public void testing() {
-
-		WebDriver driver = new ChromeDriver();
 		
-		driver.get("http://automationpractice.com/index.php");
+		WebDriver driver; 
+
+		SingletonDriver sd = SingletonDriver.getClassInstance();
+		
+		 sd.openBrowser("chrome", "http://automationpractice.com/index.php");
+		
+		Util ut = new Util();
+		
+		ut.closeAllBrowser();
+
 	}
 }
