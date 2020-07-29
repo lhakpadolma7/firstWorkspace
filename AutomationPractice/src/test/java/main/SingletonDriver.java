@@ -14,10 +14,20 @@ public class SingletonDriver {
 	//Q- If we create a singleton driver class, what would be the limitation for the testing?
 
 	public SingletonDriver(WebDriver driver) {
-		this.driver = driver;
+		SingletonDriver.driver = driver;
 	}
 
-	private WebDriver driver;
+	private static WebDriver driver = null;
+
+	private static SingletonDriver driverInstance = null;
+
+
+	public static SingletonDriver getClassInstance() {
+
+		if(driverInstance == null)
+			driverInstance = new SingletonDriver(driver);
+		return driverInstance;
+	}
 
 	public WebDriver getDriver() {
 		return driver;
@@ -25,6 +35,8 @@ public class SingletonDriver {
 
 	public WebDriver openBrowser(String browser, String url) {
 
+		if(driver == null) {
+			
 		if(browser.equalsIgnoreCase("Chrome")) {
 			driver = new ChromeDriver();
 			driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
@@ -52,6 +64,9 @@ public class SingletonDriver {
 		else {
 			System.out.println("Incorrect browser >_<");
 		}
+
+		}
+
 		return driver;
 	}
 
